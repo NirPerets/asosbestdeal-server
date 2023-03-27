@@ -13,6 +13,10 @@ const port = process.env.PORT || 3000
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get('/', (req, res) => {
+    res.redirect('https://asos-best-deal.onrender.com/')
+})
+
 app.post("/getImage", async (req,res) => {
     const url = await urlBuilder.getCustomUrl(req.body.url,"COM","GBP") // Get UK Url
     const product = await fetchProduct.getProductImage(url);
@@ -47,5 +51,3 @@ function setIlsPrice() {
 cron.schedule('0 0 * * *', () => {
     setIlsPrice()
 })
-
-app.use(express.static(path.resolve(__dirname, "./client/build")));
