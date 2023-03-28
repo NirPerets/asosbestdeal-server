@@ -1,17 +1,21 @@
-const express    = require('express');
-const bodyParser = require('body-parser');
-const axios      = require('axios');
-const fs         = require('fs')
-const cron       = require('node-cron')
-const path       = require('path')
+const express      = require('express');
+const bodyParser   = require('body-parser');
+const axios        = require('axios');
+const fs           = require('fs')
+const cron         = require('node-cron')
+const path         = require('path')
+const cors         = require('cors')
 const urlBuilder   = require('./Functions/getUrls')
 const fetchProduct = require('./Functions/fetchProducts');
+const corsOptions  = require('./config/corsOptions')
+
 
 const app = express();
 const port = process.env.PORT || 3000
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors(corsOptions))
 
 app.get('/', (req, res) => {
     res.redirect('https://asos-best-deal.onrender.com/')
